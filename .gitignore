@@ -1,0 +1,5 @@
+*.sh
+.idea
+browsercookie/*.pyc
+driftwood/*.pyc
+driftwood/*/*.pyc
