@@ -3,3 +3,4 @@
 browsercookie/*.pyc
 driftwood/*.pyc
 driftwood/*/*.pyc
+*__pycache__
