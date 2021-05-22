@@ -48,7 +48,7 @@ class ActionsFactory(object):
                 self.services_manager.showroom_api.get_live_data(room, self.services_manager.showroom_manager.lives_manager)
                 self.services_manager.do_communication(room, callback)
             else:
-                print "Room offline."
+                print("Room offline.")
 
     class MessageAction(BaseAction):
         """Handler for Message action."""
@@ -78,7 +78,7 @@ class ActionsFactory(object):
                          if x.live.live_id > self.configuration.count.minimum_live_id]
 
             if self.services_manager.do_count_in_rooms(rooms):
-                print "Maximum value: %s" % rooms[-1].live.live_id
+                print(f"Maximum value: {rooms[-1].live.live_id}")
 
     class ThrowAction(BaseAction):
         """Handler for Throw action."""
@@ -90,7 +90,7 @@ class ActionsFactory(object):
             if room is not None:
                 self.services_manager.do_throw_normal_items(room, self.configuration.throw.items)
             else:
-                print "Room offline."
+                print("Room offline.")
 
     class WatchAction(BaseAction):
         """Handler for Watch action."""
@@ -151,7 +151,7 @@ class ActionsFactory(object):
             while avatar is None or int(avatar.get('grade')) != self.configuration.lottery.target:
                 avatar = self.services_manager.showroom_manager.showroom_api.execute_lottery( \
                              self.configuration.lottery.name)
-                print avatar
+                print(avatar)
 
     class OnlineAction(BaseAction):
         """Handler for Online action."""
@@ -161,8 +161,8 @@ class ActionsFactory(object):
         def execute(self):
             result = self.services_manager.showroom_manager.showroom_api.is_online( \
                          self.configuration.online.target_room)
-            print "Room %s is %s" % (self.configuration.online.target_room,
-                                     "online" if result else "not online")
+            print(f"Room {self.configuration.online.target_room} is {'online' if result else 'not online'}")
+                                     
             return result
 
     class TestAction(BaseAction):
@@ -183,7 +183,7 @@ class ActionsFactory(object):
 
         def execute(self):
             text = 'Possible values: %s' % (', '.join(self.keys))
-            print '\n'.join(textwrap.wrap(text, 80))
+            print('\n'.join(textwrap.wrap(text, 80)))
 
     class ListAvatarAction(ListBaseAction):
         """Handler for ListAvatar action."""

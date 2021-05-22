@@ -1,8 +1,6 @@
 """Command line parser."""
 import sys
 import argparse
-import Tkinter
-import tkSimpleDialog
 from srtools.configuration.configuration import Configuration
 from srtools.utils.commandline.factory import CommandLineParserFactory
 
@@ -32,16 +30,6 @@ class CommandLineParser(object):
         subparsers = self.parser.add_subparsers()
         for parser in self.options:
             parser.setup(subparsers)
-
-        if not args:
-            try:
-                root = Tkinter.Tk()
-                root.withdraw()
-                text = tkSimpleDialog.askstring("Showroom Manager", "Enter command line:")
-                if text is not None and text:
-                    args = text.split(' ')
-            except StandardError as err:
-                print err
 
         args = self.parser.parse_args(args)
         args.func(args)

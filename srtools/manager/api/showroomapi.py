@@ -376,15 +376,15 @@ class ShowroomAPI(_ShowroomWebService):
             token = re.search('name="csrf_token" value="([^"]*)"', resp.content).groups()[0]
 
             if self.query_csrf_token() != token:
-                print "Refreshing csrf_token from %s to %s." % (self.query_csrf_token(), token)
+                print(f"Refreshing csrf_token from {self.query_csrf_token()} to {token}.")
                 self.current_csrf_token = token
             else:
-                print "Current csrf_token %s still valid." % self.query_csrf_token()
+                print(f"Current csrf_token {self.query_csrf_token()} still valid.")
 
             result = True
 
         except StandardError as _err:
-            print "Could not refresh csrf_token, using default %s." % self.query_csrf_token()
+            print(f"Could not refresh csrf_token, using default {self.query_csrf_token()}.")
 
         return result
 
@@ -530,7 +530,7 @@ class ShowroomAPI(_ShowroomWebService):
                 respjson = resp.json()
                 result = (respjson.get('ok') == 1)
                 if not result:
-                    print respjson
+                    print(respjson)
                     if respjson.get('errors'):
                         if (respjson['errors'][0].get('error_user_msg') == \
                             'This show has already ended.') or \

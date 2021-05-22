@@ -49,4 +49,4 @@ class ColoredBroadcastCallback(WatchBroadcastCallback):
         if official_user_detected:
             print_error(value)
         else:
-            print value
+            print(value)

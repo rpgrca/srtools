@@ -1,5 +1,5 @@
 """Threading utilities."""
-from Queue import Queue
+from queue import Queue
 from threading import Thread
 #import logging
 from srtools.utils.loggingutils import log_debug

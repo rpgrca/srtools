@@ -64,8 +64,7 @@ class ServicesManager(BaseManager):
                     if self.showroom_api.send_comment(room.live, str(index),
                                                       self.configuration.count.max_tries,
                                                       self.configuration.count.delay):
-                        print "Counting [room: %s, name: %s, live: %s, %s-%s]: %s" % \
-                            (room.room_id, room.room_url_key, room.live.live_id, start, end, str(index))
+                        print(f"Counting [room: {room.room_id}, name: {room.room_url_key}, live: {room.live.live_id}, {start}-{end}]: {str(index)}")
 
                         time.sleep(self.configuration.count.delay)
                     else:
@@ -90,7 +89,7 @@ class ServicesManager(BaseManager):
         for room in rooms:
             parallel.add_task(rooms.index(room), self._count_in_room, room)
 
-        print parallel.get_results()
+        print(parallel.get_results())
 
     def _force_visit(self, room):
         """
@@ -222,7 +221,7 @@ class ServicesManager(BaseManager):
         tries = 3
         room = None
         while tries > 0 and room is None:
-            print "Trying to refresh manager..."
+            print("Trying to refresh manager...")
             tries -= 1
             self.showroom_manager.initialize()
             room = self.showroom_manager.rooms_manager.find(room_id)
@@ -248,10 +247,9 @@ class ServicesManager(BaseManager):
             message = "Room %s is not online, retrying in %s seconds." % (room_id, delay)
             next_br = self.showroom_api.get_next_live(room_id)
             if next_br is not None:
-                print "%s\n    Next broadcast: %s (in %s)" % \
-                      (message, next_br, (next_br - datetime.now()))
+                print(f"{message}\n    Next broadcast: {next_br} (in {(next_br - datetime.now())})")
             else:
-                print message
+                print(message)
 
             time.sleep(delay)
 
@@ -277,7 +275,7 @@ class ServicesManager(BaseManager):
                    self.showroom_manager.lives_manager)
 
             if live is not None and (room.live is None or room.live.live_id != live.live_id):
-                print "New live before countdown ended (%s/%s)! Aborting wait!" % (left, total)
+                print(f"New live before countdown ended ({left}/{total})! Aborting wait!")
                 room.live = live
 
                 self._do_watch_capture(room)
@@ -344,14 +342,7 @@ class ServicesManager(BaseManager):
                                        if int(last[room.room_id]["points"]) != 0 else 0
                               }
 
-            print "Updating %s [R: %s, L: %s, F: %s (%s), P: %s (%s)]" % (
-                room.room_url_key,
-                room.room_id,
-                room.live.live_id,
-                live.room["follower_num"],
-                int(live.room["follower_num"]) - int(last[room.room_id]["followers"]) \
-                    if int(last[room.room_id]["followers"]) != 0 else 0,
-                int(line_to_add["points"]), int(line_to_add["diff"]))
+            print(f"Updating {room.room_url_key} [R: {room.room_id}, L: {room.live.live_id}, F: {live.room['follower_num']} {(int(live.room['follower_num']) - int(last[room.room_id]['followers']) if int(last[room.room_id]['followers']) != 0 else 0)}, P: {int(line_to_add['points'])} ({int(line_to_add['diff'])})]")
 
             last[room.room_id]["points"] = live.room['popularity_point']
             last[room.room_id]["followers"] = live.room['follower_num']
@@ -383,11 +374,11 @@ class ServicesManager(BaseManager):
         if self.configuration.watch.capture:
             pid = os.fork()
             if pid > 0:
-                print "Spawned daemon process %s." % pid
+                print(f"Spawned daemon process {pid}.")
             else:
                 pid = os.fork()
                 if pid > 0:
-                    print "Spawned process %s to capture communication." % pid
+                    print(f"Spawned process {pid} to capture communication.")
                     exit(0)
                     os._exit(0)
                 else:
@@ -396,7 +387,7 @@ class ServicesManager(BaseManager):
                         callback = WatchBroadcastCallback(self.configuration, room)
 
                     self.do_communication(room, callback)
-                    print "Spawned process ended at %s." % datetime.now()
+                    print(f"Spawned process ended at {datetime.now()}.")
                     os._exit(0)
 
     """
@@ -419,9 +410,9 @@ class ServicesManager(BaseManager):
                 index += 1
                 if self.showroom_api.is_online(room.room_id):
                     rooms_to_process.append(room)
-                    print "Processing room %s (%s/%s)" % (room.room_id, index, total)
+                    print(f"Processing room {room.room_id} ({index}/{total})")
                 else:
-                    print "Skipping room %s, offline." % room.room_id
+                    print(f"Skipping room {room.room_id}, offline." % room.room_id)
 
                 if len(rooms_to_process) >= self.configuration.count.threads:
                     self._count_in_rooms(rooms_to_process)
@@ -434,7 +425,7 @@ class ServicesManager(BaseManager):
 
             result = True
         else:
-            print "No room to count."
+            print("No room to count.")
 
         return result
 
@@ -499,7 +490,7 @@ class ServicesManager(BaseManager):
                                 required_bonuses -= 1
 
                         if required_bonuses < 1:
-                            print parallel.get_results()
+                            print(parallel.get_results())
                             break
                 else:
                     break
@@ -522,7 +513,7 @@ class ServicesManager(BaseManager):
             while True:
                 lines = []
                 date = datetime.now()
-                print "Processing %s rooms at %s..." % (len(rooms), date)
+                print(f"Processing {len(rooms)} rooms at {date}...")
                 for room_id in rooms:
                     room = self.showroom_manager.rooms_manager.find(room_id)
                     if room is not None:
@@ -539,7 +530,7 @@ class ServicesManager(BaseManager):
 
                             users = self._do_track_find_official_users(live)
                             if users:
-                                print "\tIn this arena: %s." % (",".join(map(str, users)))
+                                print(f"\tIn this arena: {','.join(map(str, users))}.")
 
                             if self.configuration.track.capture:
                                 if live.live_id not in active_watch:
@@ -575,7 +566,7 @@ class ServicesManager(BaseManager):
             while True:
                 obtained_rooms = []
                 date = datetime.now()
-                print "Checking %s rooms at %s for avatars..." % (len(rooms), date)
+                print(f"Checking {len(rooms)} rooms at {date} for avatars...")
                 for room_id in rooms:
                     save = False
                     room = self.showroom_manager.rooms_manager.find(room_id)
@@ -588,14 +579,14 @@ class ServicesManager(BaseManager):
                                 respjson = self._do_hunt_avatar(room)
                                 if respjson.get("ok"):
                                     save = True
-                                    print "Obtained avatar from room %s." % str(room_id)
+                                    print(f"Obtained avatar from room {str(room_id)}.")
                                 else:
                                     if respjson.get('errors'):
-                                        print "Couldn't obtain avatar from room %s (%s)." % (room_id, respjson['errors'][0].get('error_user_msg'))
+                                        print(f"Couldn't obtain avatar from room {room_id} ({respjson['errors'][0].get('error_user_msg')}).")
                             else:
-                                print "Room %s is in poll mode." % str(room_id)
+                                print(f"Room {str(room_id)} is in poll mode.")
                         else:
-                            print "Simulated obtaining avatar from room %s." % str(room_id)
+                            print(f"Simulated obtaining avatar from room {str(room_id)}.")
 
                         if save:
                             obtained_rooms.append(room_id)
@@ -621,16 +612,16 @@ class ServicesManager(BaseManager):
         for room_id in rooms_id:
             pid = os.fork()
             if pid > 0:
-                print "Spawned process %s to watch room %s." % (pid, str(room_id))
+                print(f"Spawned process {pid} to watch room {str(room_id)}.")
                 pids.append(pid)
             else:
                 self.do_watch_room(room_id, delay)
-                print "Spawned process for room %s ended." % str(room_id)
+                print(f"Spawned process for room {str(room_id)} ended.")
                 os._exit(0)
 
         while pids:
             pid, status = os.wait()
-            print "Process %s ended with status %s." % (pid, status)
+            print(f"Process {pid} ended with status {status}.")
             pids.remove(pid)
 
     def do_watch_room(self, room_id, delay):
@@ -650,7 +641,7 @@ class ServicesManager(BaseManager):
 
         while True:
             self._do_watch_wait(room_id, delay)
-            print "Room %s is online. Refreshing manager..." % room_id
+            print(f"Room {room_id} is online. Refreshing manager...")
             room = self._do_watch_refresh_manager(room_id)
 
             if room:
@@ -658,22 +649,22 @@ class ServicesManager(BaseManager):
                 while self.showroom_manager.showroom_api.is_online(room_id):
                     self._force_visit(room)
 
-                    print "Refreshing rooms list..."
+                    print("Refreshing rooms list...")
                     rooms_filter = self.showroom_manager.rooms_manager.create_filter()
                     rooms_filter.official = room.official
                     rooms = self.showroom_manager.rooms_manager.rooms(rooms_filter)
 
                     if not self.configuration.watch.skip_throw:
-                        print "Throwing and reloading items..."
+                        print("Throwing and reloading items...")
                         self.do_throw_normal_items(room)
                         self.do_reload_items(rooms)
                         self.do_throw_normal_items(room)
                         self.do_reload_items(rooms)
                         self.do_throw_normal_items(room)
                     else:
-                        print "Skipping throwing and reloading items..."
+                        print("Skipping throwing and reloading items...")
 
-                    print "Guessing next round of gathering..."
+                    print("Guessing next round of gathering...")
                     tries = 3
                     timeout = None
                     while tries > 0 and timeout is None:
@@ -691,10 +682,10 @@ class ServicesManager(BaseManager):
                     if timeout is None:
                         seconds = 60
 
-                    print "Guessed %s (in %s seconds)..." % (timeout, seconds)
+                    print(f"Guessed {timeout} (in {seconds} seconds)...")
                     current_date = datetime.now()
 
-                    print "Determining if count is needed..."
+                    print("Determining if count is needed...")
                     if live_id != room.live.live_id:
                         counted_in_room = False
 
@@ -707,20 +698,19 @@ class ServicesManager(BaseManager):
                     if seconds < 1 or seconds > (60 * 60):
                         seconds = 30
 
-                    print "Waiting until %s for next round of gathering (%s seconds)...    " % \
-                        (timeout, seconds)
+                    print(f"Waiting until {timeout} for next round of gathering ({seconds} seconds)...    ")
 
                     activesleep(seconds, self._do_watch_check_renewal, extra={"room": room})
                     self.showroom_api.clear_timeout(room)
-                    print "Woke up! Refreshing room list to gather items..."
+                    print("Woke up! Refreshing room list to gather items...")
                     room = self._do_watch_refresh_manager(room_id)
                     rooms = self.showroom_manager.rooms_manager.rooms(rooms_filter)
 
                     if not self.configuration.watch.skip_throw:
-                        print "Found %s rooms. Gathering items..." % len(rooms)
+                        print(f"Found {len(rooms)} rooms. Gathering items...")
                         self.do_reload_items(rooms)
                     else:
-                        print "Found %s rooms, but skipping gathering items..." % len(rooms)
+                        print(f"Found {len(rooms)} rooms, but skipping gathering items...")
 
     def get_throwable_items(self, room, normal_items_only=False):
         """Returns array with throwable items in given room."""
@@ -728,7 +718,7 @@ class ServicesManager(BaseManager):
         result = []
         if respjson is not None:
             if respjson['add_free_gift'] == 1:
-                print "Obtained bonus from room %s!" % room.room_id
+                print(f"Obtained bonus from room {room.room_id}!")
                 room.bonus_checked = True
 
             result = respjson['gift_list']['enquete'] \
@@ -784,7 +774,7 @@ class ServicesManager(BaseManager):
                 parallel.add_task(throw.index(element), function, element['gift_id'],
                                   room.live, element['free_num'])
 
-            print parallel.get_results()
+            print(parallel.get_results())
 
     def poll_free_gifts(self, room):
         """Polls the room."""
