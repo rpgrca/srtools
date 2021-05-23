@@ -553,7 +553,7 @@ class ServicesManager(BaseManager):
                 seconds = self.configuration.track.delay - (datetime.now() - date).seconds
                 activesleep(seconds)
                 self.showroom_manager.initialize()
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
 
     def do_hunt_avatars(self, rooms):
@@ -597,7 +597,7 @@ class ServicesManager(BaseManager):
                 seconds = self.configuration.hunt.delay - (datetime.now() - date).seconds
                 activesleep(seconds)
                 self.showroom_manager.initialize()
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
 
     def do_watch_rooms(self, rooms_id, delay):
@@ -675,7 +675,7 @@ class ServicesManager(BaseManager):
                                 seconds = (japan_tz.localize(datetime.combine(datetime.now().date(), \
                                           datetime.strptime(timeout, "%H:%M:%S").time())) - \
                                           datetime.now(tz=japan_tz)).seconds + 60
-                            except StandardError as err:
+                            except Exception as err:
                                 log_error(err)
                                 seconds = 600
 

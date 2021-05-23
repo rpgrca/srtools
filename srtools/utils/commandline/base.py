@@ -50,7 +50,7 @@ class IConfigurationInterface(object):
 
                 #else:
                     #values = [x for x in group.split(',')]
-        except StandardError as _err:
+        except Exception as _err:
             self.parser.error("Unknown group alias (%s)" % group)
 
         return values

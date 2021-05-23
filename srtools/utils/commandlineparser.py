@@ -31,8 +31,8 @@ class CommandLineParser(object):
         for parser in self.options:
             parser.setup(subparsers)
 
-        args = self.parser.parse_args(args)
-        args.func(args)
+        args2 = self.parser.parse_args(args)
+        args2.func(args2)
 
         return self.configuration
 

@@ -79,7 +79,7 @@ class DefaultBroadcastCallback(object):
             else:
                 code = message.split("\t")
 
-        except StandardError as err:
+        except Exception as err:
             print_error(err)
 
         return [code, key, data]
@@ -528,7 +528,7 @@ class DefaultBroadcastCallback(object):
             elif code == srtools.manager.api.message.MESSAGE_HEADER_ERR:
                 cont = self._err_received()
 
-        except StandardError as err:
+        except Exception as err:
             print_error(err)
 
         return cont

@@ -14,7 +14,7 @@ def load_json(filename):
     try:
         with open(filename, 'r') as inputfile:
             filejson = json.load(inputfile)
-    except StandardError as err:
+    except Exception as err:
         log_error(err)
 
     return filejson
@@ -31,5 +31,5 @@ def save_json(dictionary, filename):
         text = json.dumps(dictionary, indent=4, sort_keys=True)
         with open(filename, 'w') as outfile:
             outfile.write(text)
-    except StandardError as err:
+    except Exception as err:
         log_error(err)

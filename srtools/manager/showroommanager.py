@@ -60,5 +60,5 @@ class ShowroomManager(object):
                                 if current_room.live.live_id != room['live_id']:
                                     current_room.live = self.lives_manager.create(room['live_id'])
 
-        except StandardError as err:
+        except Exception as err:
             log_error(err)

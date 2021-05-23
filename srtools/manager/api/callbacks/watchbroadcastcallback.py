@@ -18,7 +18,7 @@ class WatchBroadcastCallback(DefaultBroadcastCallback):
     def _load_users(self, filename):
         respjson = load_json(filename)
         if respjson is None:
-            print_error("No %s loaded!", filename)
+            print_error(f"No {filename} loaded!")
             respjson = {}
 
         return respjson

@@ -29,7 +29,7 @@ class ShowroomAPI(_ShowroomWebService):
         """
         try:
             self.connections_manager.twitter_timeout[room.official] = str(timeout)
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
 
     def clear_timeout(self, room):
@@ -71,7 +71,7 @@ class ShowroomAPI(_ShowroomWebService):
                     result = 1
         except ValueError as err:
             result = 3
-        except StandardError as err:
+        except Exception as err:
             result = 3
             log_error(err)
 
@@ -92,7 +92,7 @@ class ShowroomAPI(_ShowroomWebService):
 
                 if respjson.get('user_id') == 0 or respjson.get('errors') is not None:
                     respjson = None
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
 
         return respjson
@@ -109,7 +109,7 @@ class ShowroomAPI(_ShowroomWebService):
             if resp is not None:
                 respjson = resp.json()
                 result = respjson.get('num')
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
 
         return result
@@ -125,7 +125,7 @@ class ShowroomAPI(_ShowroomWebService):
             resp = self._query_onlives()
             if resp is not None:
                 respjson = resp.json()
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
 
         return respjson
@@ -143,7 +143,7 @@ class ShowroomAPI(_ShowroomWebService):
             resp = self._query_summary_ranking(room)
             if resp is not None:
                 respjson = resp.json()
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
 
         return respjson
@@ -161,7 +161,7 @@ class ShowroomAPI(_ShowroomWebService):
             resp = self._query_stage_user_list(room)
             if resp is not None:
                 respjson = resp.json()
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
 
         return respjson
@@ -179,7 +179,7 @@ class ShowroomAPI(_ShowroomWebService):
             resp = self._query_stage_user_list_anteroom(room)
             if resp is not None:
                 respjson = resp.json()
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
 
         return respjson
@@ -197,7 +197,7 @@ class ShowroomAPI(_ShowroomWebService):
             resp = self._query_stage_gift_list(room)
             if resp is not None:
                 respjson = resp.json()
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
 
         return respjson
@@ -215,7 +215,7 @@ class ShowroomAPI(_ShowroomWebService):
             resp = self._query_gift_list(room)
             if resp is not None:
                 respjson = resp.json()
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
 
         return respjson
@@ -233,7 +233,7 @@ class ShowroomAPI(_ShowroomWebService):
             resp = self._query_settings(room)
             if resp is not None:
                 respjson = resp.json()
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
 
         return respjson
@@ -252,7 +252,7 @@ class ShowroomAPI(_ShowroomWebService):
             if resp is not None:
                 respjson = resp.json()
                 result = respjson.get('telop')
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
 
         return result
@@ -270,7 +270,7 @@ class ShowroomAPI(_ShowroomWebService):
             resp = self._query_event_and_support(room)
             if resp is not None:
                 respjson = resp.json()
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
 
         return respjson
@@ -288,7 +288,7 @@ class ShowroomAPI(_ShowroomWebService):
             resp = self._query_gift_log(room)
             if resp is not None:
                 respjson = resp.json()
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
 
         return respjson
@@ -306,7 +306,7 @@ class ShowroomAPI(_ShowroomWebService):
             resp = self._query_questionnaire_result(room)
             if resp is not None:
                 respjson = resp.json()
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
 
         return respjson
@@ -323,7 +323,7 @@ class ShowroomAPI(_ShowroomWebService):
         """
         try:
             result = self._query_user_profile(room, user)
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
             result = None
 
@@ -342,7 +342,7 @@ class ShowroomAPI(_ShowroomWebService):
             resp = self._query_comment_log(room)
             if resp is not None:
                 respjson = resp.json()
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
             respjson = None
 
@@ -358,7 +358,7 @@ class ShowroomAPI(_ShowroomWebService):
         """
         try:
             result = self._query_banners(room)
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
             result = None
 
@@ -383,7 +383,7 @@ class ShowroomAPI(_ShowroomWebService):
 
             result = True
 
-        except StandardError as _err:
+        except Exception as _err:
             print(f"Could not refresh csrf_token, using default {self.query_csrf_token()}.")
 
         return result
@@ -425,7 +425,7 @@ class ShowroomAPI(_ShowroomWebService):
                 respjson = resp.json()
                 result = (respjson.get('ok') == 1)
                 #result = (respjson.get('live_status') == 2)
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
 
         return result
@@ -445,7 +445,7 @@ class ShowroomAPI(_ShowroomWebService):
                     elif respjson.get("error") == 'Already logged in.':
                         result = True
 
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
 
         return result
@@ -471,7 +471,7 @@ class ShowroomAPI(_ShowroomWebService):
                     result = lives_manager.create(live_id)
 
             room.live = result
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
 
         return result
@@ -501,7 +501,7 @@ class ShowroomAPI(_ShowroomWebService):
                         result = lives_manager.create(live_id)
 
                     lives_manager.refresh(result, respjson)
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
 
         return result
@@ -539,7 +539,7 @@ class ShowroomAPI(_ShowroomWebService):
                             break
                         elif respjson['errors'][0].get('error_user_msg') == 'Please try again.':
                             time.sleep(delay)
-            except StandardError as err:
+            except Exception as err:
                 log_error(err)
 
         return result
@@ -556,7 +556,7 @@ class ShowroomAPI(_ShowroomWebService):
             waiting = parse("You can get free gifts until {}.", error_message)
             if waiting:
                 self.set_timeout(room, datetime.datetime.strptime(waiting[0], "%H:%M").time())
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
 
     def send_tweet(self, room, comment=None):
@@ -594,7 +594,7 @@ class ShowroomAPI(_ShowroomWebService):
                 if respjson.get('api_error') == 1:
                     if (respjson['error'] != u'\u6295\u7a3f\u306b\u5931\u6557\u3057\u307e\u3057\u305f\u3002') and (respjson['error'] != "posting failed"):
                         self.parse_timeout_error(room, respjson['error'])
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
 
         return result
@@ -611,7 +611,7 @@ class ShowroomAPI(_ShowroomWebService):
             if profile_configuration.avatar_id != None and profile_configuration.name != None:
                 resp = self._query_profile(profile_configuration)
                 result = (resp.url == u'https://www.showroom-live.com/user/my_profile_edit_done')
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
 
         return result
@@ -631,7 +631,7 @@ class ShowroomAPI(_ShowroomWebService):
 
                 if result is not None:
                     result = datetime.datetime.fromtimestamp(result)
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
 
         return result
@@ -669,7 +669,7 @@ class ShowroomAPI(_ShowroomWebService):
                     result = respjson
                     log_error('Error (%s)' % respjson.get('error'))
 
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
 
         return result
@@ -689,7 +689,7 @@ class ShowroomAPI(_ShowroomWebService):
             resp = self._query_gifting_point_use(live, gift_id, num)
             if resp is not None:
                 result = resp.json()
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
 
         return result
@@ -709,7 +709,7 @@ class ShowroomAPI(_ShowroomWebService):
                 result = resp.json()
                 if result.get('error') == 1:
                     result = None
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
 
         return result
@@ -729,7 +729,7 @@ class ShowroomAPI(_ShowroomWebService):
                 result = resp.json()
                 if result.get('error') == 1:
                     result = None
-        except StandardError as err:
+        except Exception as err:
             log_error(err)
 
         return result

@@ -56,6 +56,6 @@ class CommandLineParserFactory(object):
         elif option == "HUNT":
             result = Hunt(configuration, parser)
         else:
-            log_error("Unkonwn action (%s)" % option)
+            log_error(f"Unkonwn action ({option})")
 
         return result

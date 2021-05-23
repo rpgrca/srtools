@@ -94,7 +94,7 @@ class ShowroomBroadcast(object):
                     self._remaining_data = received_data
                     message_list = []
 
-        except StandardError as err:
+        except Exception as err:
             print_error(err)
 
         return message_list
@@ -120,7 +120,7 @@ class ShowroomBroadcast(object):
             else:
                 self._remaining_data = received_data
                 message_list = []
-        except StandardError as err:
+        except Exception as err:
             print_error(err)
 
         return message_list
