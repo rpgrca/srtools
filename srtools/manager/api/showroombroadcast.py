@@ -15,7 +15,7 @@ class ShowroomBroadcast(object):
     _LOWLEVEL_QUIT = srtools.manager.api.message.MESSAGE_HEADER_QUIT + "\n"
     _LOWLEVEL_PING = srtools.manager.api.message.MESSAGE_HEADER_PING + "\tshowroom\n"
 
-    _remaining_data = ""
+    _remaining_data = bytearray()
     _room = None
     _user = None
     _ping_task = None
@@ -35,7 +35,7 @@ class ShowroomBroadcast(object):
         :param message: Message to send.
         :type message: string
         """
-        self._connected_socket.sendall(message)
+        self._connected_socket.sendall(message.encode('utf8'))
 
     def _connect(self, address, port):
         """
@@ -80,9 +80,11 @@ class ShowroomBroadcast(object):
             message_list = []
             received_data = self._connected_socket.recv(self._RECV_BUFFER_SIZE)
             if received_data:
-                received_data = self._remaining_data + received_data
-                if received_data.find("\n") > -1:
-                    index = received_data.rfind("\n") + 1
+                temp_received = self._remaining_data;
+                temp_received.extend(received_data)
+                received_data = temp_received
+                if received_data.find(b"\n") > -1:
+                    index = received_data.rfind(b"\n") + 1
                     result = received_data[:index]
 
                     self._remaining_data = received_data[index:]

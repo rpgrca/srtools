@@ -427,7 +427,7 @@ class DefaultBroadcastCallback(object):
         """
         self._empty_message_counter = 0
         if self._file:
-            self._file.write(str(datetime.now()) + "\t" + message.encode("utf-8") + "\n")
+            self._file.write(str(datetime.now()) + "\t" + message + "\n")
 
     def empty_message(self):
         """
