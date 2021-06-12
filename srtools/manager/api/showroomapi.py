@@ -733,3 +733,14 @@ class ShowroomAPI(_ShowroomWebService):
             log_error(err)
 
         return result
+
+    def get_room_profile(self, room):
+        result = None
+        try:
+            resp = self._query_room_profile(room)
+            if resp is not None:
+                result = resp.json()
+        except Exception as err:
+            log_error(err)
+
+        return result

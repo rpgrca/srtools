@@ -549,3 +549,11 @@ class _ShowroomWebService(object):
             files["description"] = (None, profile_configuration.description)
 
         return self.connections_manager.post(self.API_PROFILE_EDIT, files=files)
+
+    def _query_room_profile(self, room):
+        """Gets room information."""
+        params = {
+            'room_id': room.room_id,
+            '_': int(time.time())
+        }
+        return self.connections_manager.get(self.API_ROOM_PROFILE, params=params)

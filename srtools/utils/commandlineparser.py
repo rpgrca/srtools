@@ -22,7 +22,8 @@ class CommandLineParser(object):
             CommandLineParserFactory.create("track", self.configuration, self.parser),
             CommandLineParserFactory.create("watch", self.configuration, self.parser),
             CommandLineParserFactory.create("message", self.configuration, self.parser),
-            CommandLineParserFactory.create("hunt", self.configuration, self.parser)
+            CommandLineParserFactory.create("hunt", self.configuration, self.parser),
+            CommandLineParserFactory.create("stalk", self.configuration, self.parser)
         ]
 
     def parse(self, args):

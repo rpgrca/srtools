@@ -22,7 +22,8 @@ class RoomsManager(BaseManager):
             self.room_id = room_id
             self.room_url_key = None
             self.genres = []
-            self.avatar_id = -1
+            self.avatars = []
+            self.avatars_checked = False
             self.has_upcoming = False
             self.badge = False
             self.image = None

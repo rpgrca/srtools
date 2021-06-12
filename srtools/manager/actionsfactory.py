@@ -206,6 +206,14 @@ class ActionsFactory(object):
                 configuration, services_manager, configuration.favorite_groups
             )
 
+    class StalkAction(BaseAction):
+        """Handler for Stalk action."""
+        def __init__(self, configuration, services_manager):
+            super(ActionsFactory.StalkAction, self).__init__(configuration, services_manager)
+
+        def execute(self):
+            self.services_manager.do_stalk_avatars(self.configuration.obtained_avatars.avatars)
+
     def __init__(self):
         pass
 
@@ -253,6 +261,8 @@ class ActionsFactory(object):
             action = self.MessageAction(configuration, services_manager)
         elif action_id == SelectedConfiguration.HUNT:
             action = self.HuntAction(configuration, services_manager)
+        elif action_id == SelectedConfiguration.STALK:
+            action = self.StalkAction(configuration, services_manager)
         else:
             log_error("Unkonwn action (%s)" % action_id)
 

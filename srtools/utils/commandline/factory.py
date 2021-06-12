@@ -15,6 +15,7 @@ from srtools.utils.commandline.daemon import Daemon
 from srtools.utils.commandline.capture import Capture
 from srtools.utils.commandline.message import Message
 from srtools.utils.commandline.hunt import Hunt
+from srtools.utils.commandline.stalk import Stalk
 
 class CommandLineParserFactory(object):
     """Command line parser factory"""
@@ -55,6 +56,8 @@ class CommandLineParserFactory(object):
             result = Message(configuration, parser)
         elif option == "HUNT":
             result = Hunt(configuration, parser)
+        elif option == "STALK":
+            result = Stalk(configuration, parser)
         else:
             log_error(f"Unkonwn action ({option})")
 

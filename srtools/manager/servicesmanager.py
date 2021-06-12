@@ -636,7 +636,6 @@ class ServicesManager(BaseManager):
         japan_tz = timezone('Asia/Tokyo')
         self.configuration.gather.use_twitter = False
         self.configuration.gather.use_bonus = True
-        self.configuration.count.delay = 0
         live_id = 0
 
         while True:
@@ -815,3 +814,64 @@ class ServicesManager(BaseManager):
 
         showroom_lowlevel_api = ShowroomBroadcast(self.configuration, room, None)
         showroom_lowlevel_api.do_communication(callback)
+
+    def do_stalk_avatars(self, avatars):
+        """
+        Automatize stalking rooms for avatars. Spawn a process for each room.
+        :param avatars: List of Avatar ids.
+        :type avatars: int[]
+        """
+        try:
+            avatar_list = list(avatars)
+            verified_rooms = []
+            while True:
+                date = datetime.now()
+                print("Already obtained %s avatars as of %s..." % (len(avatar_list), date))
+
+                rooms = self.showroom_manager.rooms_manager.rooms()
+                print("Analyzing %s rooms..." % len(rooms))
+                for room in rooms:
+                    if room.room_id not in verified_rooms:
+                        room.avatars_checked = True
+
+                        respjson = self.showroom_api.get_room_profile(room)
+                        if respjson.get("avatar"):
+                            avatar_urls = respjson.get("avatar").get("list")
+
+                            for avatar_url in avatar_urls:
+                                saveAvatar = False
+                                avatar_id = int(avatar_url.split('/')[-1].split('.')[0])
+
+                                if avatar_id not in avatar_list:
+                                    live = self.showroom_manager.showroom_api.get_live_data(room, \
+                                           self.showroom_manager.lives_manager)
+
+                                    if live is not None and not live.is_enquete:
+                                        respjson = self._do_hunt_avatar(room)
+                                        if respjson.get("ok"):
+                                            saveAvatar = True
+
+                                            print("Obtained avatar from room %s." % str(room.room_id))
+                                            with open(self.configuration.stalk.target_file, "a") as output:
+                                                output.write("Obtained avatar %s from room %s.\n" % (avatar_id, str(room.room_id)))
+                                        else:
+                                            if respjson.get('errors'):
+                                                print("Couldn't obtain avatar from room %s (%s)." % (room.room_id, respjson['errors'][0].get('error_user_msg')))
+                                    else:
+                                        print("Room %s is in poll mode." % str(room.room_id))
+
+                                room.avatars.append(avatar_id)
+                                if room.room_id not in verified_rooms:
+                                    verified_rooms.append(room.room_id)
+
+                                if saveAvatar:
+                                    avatar_list.append(avatar_id)
+                        else:
+                            if room.room_id not in verified_rooms:
+                                verified_rooms.append(room.room_id)
+
+                seconds = self.configuration.hunt.delay - (datetime.now() - date).seconds
+                activesleep(seconds)
+                self.showroom_manager.initialize()
+        except Exception as err:
+            log_error(err)

@@ -226,6 +226,20 @@ class HuntedAvatarsConfiguration(FavoriteConfigSupport):
             "hunting" : []
         }
 
+class ObtainedAvatarsConfiguration(FavoriteConfigSupport):
+    """Obtained avatars configuration."""
+    CONFIGURATION_FILE = 'obtained_avatars.json'
+
+    def __init__(self):
+        super(ObtainedAvatarsConfiguration, self).__init__()
+        self.load()
+        self.avatars = set(self.favorites["avatars"])
+
+    def reset(self):
+        self.favorites = {
+            "avatars": []
+        }
+
 """
 ---
 """
@@ -247,6 +261,7 @@ class SelectedConfiguration(Enum):
     CAPTURE = 13
     MESSAGE = 14
     HUNT = 15
+    STALK = 16
 
 class PaidGifts(Enum):
     """Paid gifts ids."""
@@ -437,6 +452,18 @@ class HuntConfiguration(object):
         self.target_rooms = "hunting"
         self.simulate = False
 
+class StalkConfiguration(object):
+    """Stalk configuration."""
+    def __init__(self):
+        self.reset()
+
+    def reset(self):
+        """Resets stalking configuration."""
+        self.delay = 30
+        self.target_file = "stalked_avatar.txt"
+        self.target_rooms = {}
+        self.simulate = False
+
 class WatchConfiguration(object):
     """Watch configuration."""
     def __init__(self):
@@ -533,6 +560,7 @@ class Configuration(object):
         self.favorite_users = FavoriteUsersConfiguration()
         self.favorite_avatars = FavoriteAvatarsConfiguration()
         self.favorite_groups = FavoriteGroupsConfiguration()
+        self.obtained_avatars = ObtainedAvatarsConfiguration()
         self.hunted_avatars = HuntedAvatarsConfiguration()
         self.profile = ProfileConfiguration()
         self.daemon = DaemonConfiguration()
@@ -545,6 +573,7 @@ class Configuration(object):
         self.capture = CaptureConfiguration()
         self.message = MessageConfiguration()
         self.hunt = HuntConfiguration()
+        self.stalk = StalkConfiguration()
         self.reset()
 
     def reset(self):
@@ -564,6 +593,7 @@ class Configuration(object):
         self.capture.reset()
         self.message.reset()
         self.hunt.reset()
+        self.stalk.reset()
         # Favorite configurations load automatically from file
         #self.favorite_official_users.reset()
         #self.favorite_users.reset()

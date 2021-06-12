@@ -16,7 +16,7 @@ def activesleep(total, callback=None, step=30, extra=None):
         while index > 0:
             index -= 1
 
-            print(f"Sleeping for {index}...\r")
+            print(f"Sleeping for {index}...", end='\r')
             sys.stdout.flush()
             time.sleep(1)
 
