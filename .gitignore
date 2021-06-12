@@ -5,3 +5,4 @@ driftwood/*.pyc
 driftwood/*/*.pyc
 *__pycache__
 .vscode
+*.txt
