@@ -725,7 +725,7 @@ class ServicesManager(BaseManager):
                      else respjson['gift_list']['normal']
 
             # Ignore special items in free items
-            result = [x for x in result if x['gift_id'] != FreeGifts.RAINBOW_STAR.value]
+            result = [x for x in result if x['gift_id'] != FreeGifts.RAINBOW_STAR.value and x['gift_id'] != FreeGifts.UNKNOWN_FREE_GIFT.value]
 
             if self.configuration.throw.steal_avatar and respjson['gift_list']['enquete']:
                 items = [x for x in respjson['gift_list']['normal'] if x['free_num'] > 0]

@@ -300,6 +300,7 @@ class FreeGifts(Enum):
     PURPLE_SEED = 1503
     GREEN_SEED = 1504
     BLUE_SEED = 1505
+    UNKNOWN_FREE_GIFT = 2309
 
 class BallotGifts(Enum):
     """Free ballot Ids"""
