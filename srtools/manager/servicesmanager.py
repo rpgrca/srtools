@@ -8,7 +8,7 @@ from datetime import datetime
 
 from pytz import timezone
 
-from srtools.configuration.configuration import BallotGifts, FreeGifts, PaidGifts
+from srtools.configuration.configuration import BallotGifts, ClassicFreeGifts, FreeGifts, PaidGifts
 from srtools.manager.actionsfactory import ActionsFactory
 from srtools.manager.api.callbacks.coloredbroadcastcallback import ColoredBroadcastCallback
 from srtools.manager.api.callbacks.watchbroadcastcallback import WatchBroadcastCallback
@@ -160,7 +160,7 @@ class ServicesManager(BaseManager):
         :rtype: string
         """
         log_trace("Throwing items", extra={"live":live, "gift_id":gift_id, "num":num})
-        items = [e.value for e in FreeGifts] + [e.value for e in BallotGifts]
+        items = [e.value for e in ClassicFreeGifts] + [e.value for e in BallotGifts]
 
         if gift_id in items:
             result = self.showroom_api.throw_free_gift(live, gift_id, num)
@@ -177,7 +177,7 @@ class ServicesManager(BaseManager):
         :returns: Json
         :rtype: json
         """
-        free_items = [e.value for e in FreeGifts]
+        free_items = [e.value for e in ClassicFreeGifts]
         self.configuration.throw.steal_avatar = True
         self.configuration.throw.everything = True
         items = sorted(self.get_throwable_items(room), key=lambda k: k['free_num'], reverse=True)
@@ -451,7 +451,8 @@ class ServicesManager(BaseManager):
 
                 minimum = 99
                 for item in items:
-                    if item['free_num'] < minimum and item['gift_id'] != FreeGifts.RAINBOW_STAR.value:
+                    values = [item.value for item in ClassicFreeGifts]
+                    if item['free_num'] < minimum and item['gift_id'] in values:
                         minimum = item['free_num']
 
                 if self.configuration.gather.force:
@@ -725,7 +726,8 @@ class ServicesManager(BaseManager):
                      else respjson['gift_list']['normal']
 
             # Ignore special items in free items
-            result = [x for x in result if x['gift_id'] != FreeGifts.RAINBOW_STAR.value and x['gift_id'] != FreeGifts.UNKNOWN_FREE_GIFT.value]
+            values = [item.value for item in ClassicFreeGifts]
+            result = [x for x in result if x['gift_id'] in values]
 
             if self.configuration.throw.steal_avatar and respjson['gift_list']['enquete']:
                 items = [x for x in respjson['gift_list']['normal'] if x['free_num'] > 0]

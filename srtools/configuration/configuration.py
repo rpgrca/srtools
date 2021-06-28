@@ -287,20 +287,33 @@ class PaidGifts(Enum):
     AKB_MAMORI = 600028
     STU_MAMORI = 600033
 
-class FreeGifts(Enum):
-    """Free gift Ids"""
+class ClassicFreeGifts(Enum):
     YELLOW_STAR = 1
     RED_STAR = 1001
     PURPLE_STAR = 1002
     GREEN_STAR = 1003
     BLUE_STAR = 2
-    RAINBOW_STAR = 1601
     YELLOW_SEED = 1501
     RED_SEED = 1502
     PURPLE_SEED = 1503
     GREEN_SEED = 1504
     BLUE_SEED = 1505
+
+class FreeGifts(Enum):
+    """Free gift Ids"""
+    YELLOW_STAR = ClassicFreeGifts.YELLOW_STAR.value
+    RED_STAR = ClassicFreeGifts.RED_STAR.value
+    PURPLE_STAR = ClassicFreeGifts.PURPLE_STAR.value
+    GREEN_STAR = ClassicFreeGifts.GREEN_STAR.value
+    BLUE_STAR = ClassicFreeGifts.BLUE_STAR.value
+    RAINBOW_STAR = 1601
+    YELLOW_SEED = ClassicFreeGifts.YELLOW_SEED.value
+    RED_SEED = ClassicFreeGifts.RED_SEED.value
+    PURPLE_SEED = ClassicFreeGifts.PURPLE_SEED.value
+    GREEN_SEED = ClassicFreeGifts.GREEN_SEED.value
+    BLUE_SEED = ClassicFreeGifts.BLUE_SEED.value
     UNKNOWN_FREE_GIFT = 2309
+    UNKNOWN_FREE_GIFT_2 = 2311
 
 class BallotGifts(Enum):
     """Free ballot Ids"""
