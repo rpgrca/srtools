@@ -417,7 +417,8 @@ class _ShowroomWebService(object):
             'gift_id': gift_id,
             'live_id': live.live_id,
             'num': num,
-            'csrf_token': self._query_csrf_token()
+            'csrf_token': self._query_csrf_token(),
+            'isRemovable': True
         }
         return self.connections_manager.post(self.API_GIFTING_FREE, data=data)
 
