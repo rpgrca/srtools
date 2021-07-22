@@ -773,6 +773,7 @@ class ServicesManager(BaseManager):
                     function = self._throw_item
 
                 function(element['gift_id'], room.live, element['free_num'])
+                time.sleep(2)
                 #parallel.add_task(throw.index(element), function, element['gift_id'],
                 #                  room.live, element['free_num'])
 
