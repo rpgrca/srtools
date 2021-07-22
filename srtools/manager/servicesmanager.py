@@ -763,7 +763,7 @@ class ServicesManager(BaseManager):
             random.shuffle(throws)
 
         for throw in self._split_array(throws):
-            parallel = Parallel(len(throw))
+            #parallel = Parallel(len(throw))
 
             for element in throw:
                 try:
@@ -772,10 +772,11 @@ class ServicesManager(BaseManager):
                 except ValueError:
                     function = self._throw_item
 
-                parallel.add_task(throw.index(element), function, element['gift_id'],
-                                  room.live, element['free_num'])
+                function(element['gift_id'], room.live, element['free_num'])
+                #parallel.add_task(throw.index(element), function, element['gift_id'],
+                #                  room.live, element['free_num'])
 
-            print(parallel.get_results())
+            #print(parallel.get_results())
 
     def poll_free_gifts(self, room):
         """Polls the room."""
