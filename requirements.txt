@@ -5,7 +5,7 @@ cffi==1.15.1
 chardet==3.0.4
 colorama==0.4.3
 configparser==4.0.2
-contextlib2==0.6.0
+contextlib2==21.6.0
 cryptography==39.0.1
 distlib==0.3.0
 distro==1.4.0
