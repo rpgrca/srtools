@@ -3,7 +3,7 @@ CacheControl==0.12.6
 certifi==2022.12.7
 cffi==1.15.1
 chardet==3.0.4
-colorama==0.4.3
+colorama==0.4.6
 configparser==4.0.2
 contextlib2==21.6.0
 cryptography==39.0.1
