@@ -19,7 +19,7 @@ keyring==18.0.1
 lockfile==0.12.2
 lz4==2.2.1
 msgpack==0.6.2
-packaging==20.3
+packaging==23.0
 parse==1.15.0
 pep517==0.8.2
 progress==1.5
