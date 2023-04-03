@@ -25,7 +25,7 @@ pep517==0.8.2
 progress==1.6
 pycparser==2.20
 pycryptodome==3.9.7
-pyparsing==2.4.6
+pyparsing==3.0.9
 pytoml==0.1.21
 pytz==2023.2
 requests==2.28.2
