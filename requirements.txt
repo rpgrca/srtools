@@ -15,7 +15,7 @@ html5lib==1.1
 idna==3.4
 ipaddr==2.2.0
 ipaddress==1.0.23
-keyring==23.13.1
+keyring==24.0.0
 lockfile==0.12.2
 lz4==4.3.2
 msgpack==1.0.5
