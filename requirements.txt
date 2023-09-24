@@ -24,7 +24,7 @@ parse==1.19.1
 pep517==0.13.0
 progress==1.6
 pycparser==2.21
-pycryptodome==3.18.0
+pycryptodome==3.19.0
 pyparsing==3.1.1
 pytoml==0.1.21
 pytz==2023.3.post1
