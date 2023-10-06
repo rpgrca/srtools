@@ -1,7 +1,7 @@
 appdirs==1.4.4
 CacheControl==0.13.1
 certifi==2023.7.22
-cffi==1.15.1
+cffi==1.16.0
 chardet==5.2.0
 colorama==0.4.6
 configparser==6.0.0
@@ -18,7 +18,7 @@ ipaddress==1.0.23
 keyring==24.2.0
 lockfile==0.12.2
 lz4==4.3.2
-msgpack==1.0.6
+msgpack==1.0.7
 packaging==23.2
 parse==1.19.1
 pep517==0.13.0
