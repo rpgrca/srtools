@@ -7,7 +7,7 @@ colorama==0.4.6
 configparser==6.0.0
 contextlib2==21.6.0
 cryptography==41.0.7
-distlib==0.3.7
+distlib==0.3.8
 distro==1.8.0
 entrypoints==0.4
 future==0.18.3
