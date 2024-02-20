@@ -6,7 +6,7 @@ chardet==5.2.0
 colorama==0.4.6
 configparser==6.0.0
 contextlib2==21.6.0
-cryptography==42.0.2
+cryptography==42.0.3
 distlib==0.3.8
 distro==1.9.0
 entrypoints==0.4
