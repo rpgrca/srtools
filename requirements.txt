@@ -6,7 +6,7 @@ chardet==5.2.0
 colorama==0.4.6
 configparser==7.0.0
 contextlib2==21.6.0
-cryptography==42.0.7
+cryptography==42.0.8
 distlib==0.3.8
 distro==1.9.0
 entrypoints==0.4
@@ -19,7 +19,7 @@ keyring==25.2.1
 lockfile==0.12.2
 lz4==4.3.3
 msgpack==1.0.8
-packaging==24.0
+packaging==24.1
 parse==1.20.2
 pep517==0.13.1
 progress==1.6
