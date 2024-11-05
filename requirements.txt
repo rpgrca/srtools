@@ -1,5 +1,5 @@
 appdirs==1.4.4
-CacheControl==0.14.0
+CacheControl==0.14.1
 certifi==2024.8.30
 cffi==1.17.1
 chardet==5.2.0
