@@ -29,7 +29,7 @@ pyparsing==3.2.3
 pytoml==0.1.21
 pytz==2025.2
 requests==2.32.4
-retrying==1.4.1
+retrying==1.4.2
 SecretStorage==3.3.3
 six==1.17.0
 toml==0.10.2
