@@ -23,7 +23,7 @@ packaging==25.0
 parse==1.20.2
 pep517==0.13.1
 progress==1.6.1
-pycparser==2.22
+pycparser==2.23
 pycryptodome==3.23.0
 pyparsing==3.2.3
 pytoml==0.1.21
