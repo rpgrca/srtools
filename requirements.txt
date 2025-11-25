@@ -30,7 +30,7 @@ pytoml==0.1.21
 pytz==2025.2
 requests==2.32.5
 retrying==1.4.2
-SecretStorage==3.4.0
+SecretStorage==3.5.0
 six==1.17.0
 toml==0.10.2
 urllib3==2.5.0
