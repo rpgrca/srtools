@@ -1,6 +1,6 @@
 appdirs==1.4.4
 CacheControl==0.14.4
-certifi==2026.2.25
+certifi==2026.5.20
 cffi==2.0.0
 chardet==7.4.3
 colorama==0.4.6
