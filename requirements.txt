@@ -9,7 +9,7 @@ contextlib2==21.6.0
 cryptography==50.0.2
 distlib==0.4.3
 distro==1.9.0
-entrypoints==0.4
+entrypoints==0.4.2
 future==1.0.0
 html5lib==1.1
 idna==3.20
